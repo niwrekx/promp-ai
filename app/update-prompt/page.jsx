@@ -1,8 +1,9 @@
 "use client";
 import {useState,useEffect} from 'react';
 import { useRouter, useSearchParams  } from 'next/navigation';
+
 import Form from "@components/Form";
-import { SearchParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
+
 
 const EditPrompt = () => {
 
@@ -25,10 +26,11 @@ const EditPrompt = () => {
       setPost({
         prompt:data.prompt,
         tag:data.tag,
-      })
-    }
+      });
+    };
+
     if(promptId) getPromptDetails();
-  },[promptId])
+  },[promptId]);
 
 // update prompt
     const updatePrompt = async (e) => {
@@ -38,7 +40,7 @@ const EditPrompt = () => {
       if(!promptId) return alert("Prompt id not found!");
 
       try{
-        const response = await fetch('/api/prompt/${promptId}',
+        const response = await fetch(`/api/prompt/${promptId}`,
         {
           method:'PATCH',
           body:JSON.stringify({
@@ -61,13 +63,13 @@ const EditPrompt = () => {
 
   return (
     <Form
-      type="Edit"
+      type='Edit'
       post={post}
       setPost={setPost}
       submitting={submitting}
       handleSubmit={updatePrompt}
     />
-  )
-}
+  );
+};
 
 export default EditPrompt;
